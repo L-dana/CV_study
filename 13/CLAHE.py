@@ -24,7 +24,7 @@ import cv2
 import numpy as np
 
 
-img = cv2.imread('imgs/FT.png')
+img = cv2.imread('imgs/20230223_185416044.jpg')
 h,w,c = img.shape
 
 #한번에 비교해보기 위해서 크기를 줄임

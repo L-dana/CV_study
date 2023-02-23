@@ -36,7 +36,7 @@ import cv2 as cv
 import numpy as np
 
 #이미지를 불러온다.
-src = cv.imread('imgs/FT.png', cv.IMREAD_COLOR)
+src = cv.imread('imgs/20230223_185416044.jpg', cv.IMREAD_COLOR)
 
 #컬러 이미지를 BGR채널로 분리한다.
 bgr_channels = cv.split(src)
