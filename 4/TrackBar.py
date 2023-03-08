@@ -19,8 +19,8 @@ cv.namedWindow('Canny')
 
 #트랙바를 생성한다.
 #트랙바 이름, 윈도우 이름, 트랙바의 최소값, 트랙바의 최댓값, 콜백함수를 입력
-cv.createTrackbar('low threshold', 'Canny', 0, 1000, on_trackbar)
-cv.createTrackbar('high threshold', 'Canny', 0, 1000, on_trackbar)
+cv.createTrackbar('low threshold', 'Canny', 0, 100, on_trackbar)
+cv.createTrackbar('high threshold', 'Canny', 0, 500, on_trackbar)
 
 #트랙바의 초기값을 설정해줍니다.
 #트랙바 이름, 트랙바가 붙은 윈도우 이름으로 트랙바에 접근.
