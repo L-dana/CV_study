@@ -2,8 +2,6 @@ import os, sys
 import numpy as np
 import cv2 as cv
 
-
-
 #img returned [h,w,3]
 def read_image(src):
     img_array = np.fromfile(src, np.uint8)
