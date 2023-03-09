@@ -12,9 +12,7 @@ def read_image(src):
     return img
 
 
-
 def write_image(dst, img, params=None):
-
     try:
         ext = os.path.splitext(dst)[1]
         result, n = cv.imencode(ext, img, params)
@@ -32,7 +30,6 @@ def write_image(dst, img, params=None):
 
         print(e)
         return False
-
 
 
 # Function to remove background
@@ -95,9 +92,6 @@ def apply(src):
     rmbg_fn(img_tar)  ##처리
 
 
-
-
-
 if __name__ == "__main__":
     input_list = sys.argv
     if len(input_list) <= 1:
@@ -105,21 +99,12 @@ if __name__ == "__main__":
         input('파일을 드래그 드랍해')
 
     src_list = input_list[1:]
-    #i = cv.imread('imgs/roffjrtlvhfem.PNG', cv.IMREAD_GRAYSCALE)
-    #cv.imshow("dd", i)
-    #cv.waitKey()
 
     for src in src_list:
         ns = src.split(".")
 
         print(ns)
-        if not (".png" in src):
-            print("무시됨 : ", src)
-            print('png 파일만 됨')
-            continue
         result = apply(src) ## 프로세싱
-
-        cv.imwrite(ns[0] + '_canny.png', result)
 
 
     print("끝!")
