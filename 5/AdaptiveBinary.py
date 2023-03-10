@@ -12,10 +12,10 @@
 import cv2 as cv
 import sys
 
-from cv2 import cvtColor
+
 
 #이미지를 읽어온다.
-img_color = cv.imread('imgs/Screenshot_20220617-191333.png', cv.IMREAD_COLOR)
+img_color = cv.imread('imgs/FT.png', cv.IMREAD_COLOR)
 if img_color is None:
     print('이미지 파일을 읽을 수 없음. ')
     sys.exit(1)
