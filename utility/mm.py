@@ -78,6 +78,14 @@ def rmbg_fn(img):
         #트랙바로부터 가져온 값으로 Canny함수의 파라미터를 조정
         img_canny = cv.Canny(img_gray, low, high)
 
+        contours, hier = cv.findContours(img_canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
+
+        img_mask = np.zeros((h, w, 1), dtype =np.uint8)
+
+        for i in contours:
+            cv.drawContours(img_mask, contours, i, (255, 255, 255), -1, cv.LINE_AA)
+
+
         #Canny 함수의 실행 결과를 화면에 보여준다.
         cv.imshow('Canny', img_canny)
 
@@ -85,13 +93,14 @@ def rmbg_fn(img):
         key = cv.waitKey(10)
         if key == 27:
             write_image(ns[0] + '_canny.png', ~img_canny)
+            write_image(ns[0] + '_contour.png', img_mask)
             break
 
 
     #cv.destroyAllWindows()
     cv.destroyWindow('Canny')
 
-    return img_canny
+    return img_canny, img_mask
 
 
 def apply(src):
