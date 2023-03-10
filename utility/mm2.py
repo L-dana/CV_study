@@ -30,10 +30,6 @@ def write_image(dst, img, params=None):
         print(e)
         return False
 
-#투명화
-def end_processing():
-    return 0
-
 
 # Function to remove background
 def get_canny_and_mask(img):
@@ -130,8 +126,8 @@ def get_canny_and_mask(img):
 
 def rmbg_fn(img):
     _, mask = get_canny_and_mask(img)
-    #img 를 4채널로 바꿔줌
     
+    #img 를 4채널로 바꿔줌
     b, g, r = cv.split(img)
     object = cv.merge([b, g, r, mask], 4)
     background = cv.merge([b, g, r, ~mask], 4)
@@ -163,8 +159,6 @@ if __name__ == "__main__":
 
         print(ns)
         apply(src) ## 프로세싱
-
-
 
     print("끝!")
     input('press enter to quit')

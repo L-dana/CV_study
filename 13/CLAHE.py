@@ -20,16 +20,16 @@
 
 
 
-import cv2
+import cv2 as cv
 import numpy as np
 
 
-img = cv2.imread('imgs/20230223_185416044.jpg')
+img = cv.imread('imgs/FT.png')
 h,w,c = img.shape
 
 #한번에 비교해보기 위해서 크기를 줄임
-img = cv2.resize(img, ((w//2, h//2))) 
-cv2.imshow('source', img)
+img = cv.resize(img, ((w//2, h//2))) 
+cv.imshow('source', img)
 
 
 #RGB 이미지를 Lab 색상 공간으로 변환
@@ -44,21 +44,22 @@ cv2.imshow('source', img)
 
 #RGB 및 CMYK 색 공간은 매체에 독립적이지 않기 때문에, 
 #위의 색 공간 방식을 L*a*b* 색 공간으로 변환하려면 먼저 sRGB나 어도비 RGB 등의 절대 색 공간으로 변환해야 한다.
-lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+lab = cv.cvtColor(img, cv.COLOR_BGR2LAB)
 
 #CLAHE 개체 생성
-clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
 #채널 분할(밝기, 빨강/초록, 노랑/파랑)
-l,a,b = cv2.split(lab)
+l,a,b = cv.split(lab)
 
 #적용(밝기 기준으로 'Concrast' 제한된 적응형 히스토그램 평활화)
 l = clahe.apply(l)
 
 #채널 합체, 다시 RGB이미지로
-lab = cv2.merge((l,a,b))
-out1 = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
-cv2.imshow('lab', out1)
+lab = cv.merge((l,a,b))
+out1 = cv.cvtColor(lab, cv.COLOR_LAB2BGR)
+#cv.imwrite('imgs/FT_CLAHE_LAB.png',out1)
+cv.imshow('lab', out1)
 
 
 
@@ -70,21 +71,22 @@ cv2.imshow('lab', out1)
 #따라서 H 값은 0°~360°의 범위를 갖고 360°와 0°는 같은 색상 빨강을 가리킨다.
 #S는 색의 가장 진한 상태를 100%로 하였을 때 진함의 정도를 나타낸다. 채도값 0%는 같은 명도의 무채색을 나타낸다.
 #V는 흰색, 검은색 제외한 색 100%, 검은색을 0%로 하였을 때 밝은 정도를 나타낸다.
-hsv= cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+hsv= cv.cvtColor(img, cv.COLOR_BGR2HSV)
 
 #CLAHE 개체 생성
-clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
 #채널 분할(색상, 채도, 명도)
-h,s,v = cv2.split(hsv)
+h,s,v = cv.split(hsv)
 
 #적용(명도 기준 'Concrast' 제한된 적응형 히스토그램 평활화)
 v = clahe.apply(v)
 
 #채널 합체, 다시 RGB이미지로
-ycbcr = cv2.merge((h,s,v))
-out2 = cv2.cvtColor(ycbcr, cv2.COLOR_HSV2BGR)
-cv2.imshow('hsv', out2)
+ycbcr = cv.merge((h,s,v))
+out2 = cv.cvtColor(ycbcr, cv.COLOR_HSV2BGR)
+#cv.imwrite('imgs/FT_CLAHE_HSV.png',out2)
+cv.imshow('hsv', out2)
 
 
 #RGB 이미지를 YUV색 공간으로 변환
@@ -97,25 +99,26 @@ cv2.imshow('hsv', out2)
 #수학적으로는 동일하나 YPbPr 아날로그 방식, YCbCr은 디지털
 #실생활에서 사용하는것은 디지털개념적인 YCbCr이며 YUV와는 엄밀히 따지면 차이가 있지만 유사하며, 
 #혼용해서 사용하는 경우가 많다. (보통YUV = YCbCr)
-yuv= cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+yuv= cv.cvtColor(img, cv.COLOR_BGR2YUV)
 
 #CLAHE 개체 생성
-clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
 #채널 분할(밝기, 파랑-밝기, 빨강-밝기)
-y,u,v = cv2.split(yuv)
+y,u,v = cv.split(yuv)
 
 #적용(밝기 기준 'Concrast' 제한된 적응형 히스토그램 평활화)
 y = clahe.apply(y)
 
 #채널 합체, 다시 RGB이미지로
-yuv = cv2.merge((y,u,v))
-out3 = cv2.cvtColor(yuv, cv2.COLOR_YUV2BGR)
-cv2.imshow('yuv', out3)
+yuv = cv.merge((y,u,v))
+out3 = cv.cvtColor(yuv, cv.COLOR_YUV2BGR)
+#cv.imwrite('imgs/FT_CLAHE_YUV.png',out3)
+cv.imshow('yuv', out3)
 
 
 
 ## 위의 결과물 모두 병합해서 출력.
-ret = cv2.hconcat((img, out1, out2, out3))
-cv2.imshow('source-lab-hsv-yuv', ret)
-cv2.waitKey(0)
+ret = cv.hconcat((img, out1, out2, out3))
+cv.imshow('source-lab-hsv-yuv', ret)
+cv.waitKey(0)
