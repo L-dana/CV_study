@@ -46,8 +46,6 @@ while(True):
 
     cv.imshow('source', img_original)
 
-    
-
     #space바를 누르면 루프에서 나온다.
     if cv.waitKey(1) == 32:
         break

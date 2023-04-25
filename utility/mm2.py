@@ -1,5 +1,4 @@
 import os, sys
-import random
 import numpy as np
 import cv2 as cv
 
@@ -77,8 +76,10 @@ def get_canny_and_mask(img):
         low = cv.getTrackbarPos('low threshold', 'Canny')
         high = cv.getTrackbarPos('low threshold', 'Canny')
 
+        img_gaussianblur = cv.GaussianBlur(img_gray, (5,5), 0)
+        img_gaussianblur = cv.GaussianBlur(img_gaussianblur, (5,5), 0)
         #트랙바로부터 가져온 값으로 Canny함수의 파라미터를 조정
-        img_canny = cv.Canny(img_gray, low, high)
+        img_canny = cv.Canny(img_gaussianblur , low, high)
 
 
         #Canny 함수의 실행 결과를 화면에 보여준다.
@@ -91,8 +92,8 @@ def get_canny_and_mask(img):
 
             ## 외곽선 검출
             kernal = cv.getStructuringElement(cv.MORPH_RECT, (3,3)) 
-            tmp = cv.dilate(img_canny, kernal, iterations = 3) #흰색 영역 부풀리기 3회
-            tmp = cv.erode(tmp, kernal, iterations= 3) #흰색 영역 세번 깎기
+            tmp = cv.dilate(img_canny, kernal, iterations = 5) #흰색 영역 부풀리기 4회
+            #tmp = cv.erode(tmp, kernal, iterations= 2) #흰색 영역 네번 깎기
             contours, hh = cv.findContours(tmp, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
             cc = len(contours)
             print(cc)
@@ -100,7 +101,7 @@ def get_canny_and_mask(img):
             idx = 0
             while idx >= 0:
                 #c = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-                cv.drawContours(img_mask, contours, idx, (255,255,255), -1, cv.LINE_AA, hh) ##외곽선 그리기(내부 채움)
+                cv.drawContours(img_mask, contours, idx, (255,255,255), 2, cv.LINE_AA, hh) ##외곽선 그리기(내부 채움)
                 '''
                 cv.drawContours(img_mask, contours, contourIdx, color, thickness=None, lineType=None, hierarchy=None, maxLevel=None, offest=None)
 
