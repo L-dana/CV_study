@@ -4,7 +4,7 @@ import cv2 as cv
 #카메라와 연결해야 합니다 카메라 인덱스를 요소로 사용합니다.
 #PC에 처음으로 연결한 카메라의 인덱스는 0
 #두번쨰로 연결한 카메라의 인덱스는 1.... 카메라의 연결 순서에 맞추어 접근할 때 사용하는 인덱스 부여
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture(1)
 
 #카메라와 성공적으로 연결되었는지 체크합니다.
 if cap.isOpened() == False:

@@ -24,11 +24,11 @@ import cv2 as cv
 import numpy as np
 
 
-img = cv.imread('imgs/FT.png')
+img = cv.imread('imgs/KakaoTalk_20230605_160056654.jpg')
 h,w,c = img.shape
 
 #한번에 비교해보기 위해서 크기를 줄임
-img = cv.resize(img, ((w//2, h//2))) 
+img = cv.resize(img, ((w//3, h//3))) 
 cv.imshow('source', img)
 
 
