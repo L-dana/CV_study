@@ -40,17 +40,22 @@ class RequestBuilder:
 
     def set_cookie_field(self, key, value):
         self.COOKIES[key] = value
+
+    def set_payload(self, payload):
+        self.PAYLOAD = payload
     
     def get_character_list(self):
         if self.PAYLOAD == None:
             raise Exception("요청이 올바르지 않습니다.")
         
+        response = None
         response = requests.post(
             'https://sg-public-api.hoyolab.com/event/game_record/genshin/api/character/list',
             headers= self.HEADERS,
             cookies=self.COOKIES,
             json=self.PAYLOAD
         )
+        self.PAYLOAD = None
         return response
 
 
