@@ -34,6 +34,7 @@ def vector_broadcast(np_1: np, np_2: np) -> np:
     # 앞쪽 차원이 부족한 배열에 대해 1로 패딩
     result_shape = list(reversed(result_shape))
 
+
     ## 뒷자리가 0 이하일 경우 빈 튜플 () 이 됨 -> 파이썬 연산방식 때문, * 연산자는 반복을 의미하게 되는데 0 이하일 경우 반복하지 않아서 빈 튜플이 되버린다.
     print((1,) * (-1))
 
